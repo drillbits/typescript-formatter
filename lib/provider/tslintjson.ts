@@ -10,6 +10,12 @@ import {getConfigFileName} from "../utils";
 
 interface TslintSettings {
     rules: {
+        align: {
+            0: boolean;
+            1: string;
+            2: string;
+            3: string;
+        };
         indent: {
             0: boolean;
             1: string;
@@ -46,6 +52,18 @@ export default function makeFormatCodeOptions(fileName: string, opts: Options, f
     let config: TslintSettings = JSON.parse(<any>fs.readFileSync(configFileName, "utf-8"));
     if (!config.rules) {
         return formatOptions;
+    }
+    if (config.rules.align && config.rules.align[0]) {
+        for (let p in config.rules.align) {
+            let value = config.rules.align[p];
+            if (value === "parameters") {
+                // TODO
+            } else if (value === "arguments") {
+                // TODO
+            } else if (value === "statements") {
+                // TODO
+            }
+        }
     }
     if (config.rules.indent && config.rules.indent[0] && config.rules.indent[1] === "spaces") {
         formatOptions.ConvertTabsToSpaces = true;
